@@ -1,0 +1,5 @@
+D:\Documents\ПРОГРАММНЫЕ ПРОЕКТЫ И ЗАДАЧИ\ASSEMBLER\FASM_programs\win64_examples>fasm __getmainargs_test3.asm -s __getmainargs_test3.fas
+flat assembler  version 1.73.24  (1048576 kilobytes memory)
+3 passes, 0.2 seconds, 1536 bytes.
+
+D:\Documents\ПРОГРАММНЫЕ ПРОЕКТЫ И ЗАДАЧИ\ASSEMBLER\FASM_programs\win64_examples>symbols __getmainargs_test3.fas __getmainargs_test3.fas.txt

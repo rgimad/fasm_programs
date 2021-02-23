@@ -1,0 +1,1 @@
+cmp word [eax], 32fh

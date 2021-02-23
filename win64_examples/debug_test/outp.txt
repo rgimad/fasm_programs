@@ -1,0 +1,64 @@
+  Fas file header
+ Input file: "strcat1.asm"
+Output file: "strcat1.obj"
+String  offset=x0040 length=x0024
+Symbol  offset=x0064 length=x0080
+Prepsrc offset=x00e4 length=x021c
+Dump    offset=x0300 length=x011c
+Section offset=x041c length=x0008
+
+  Symbol table (nsymbols 4)
+  ¹   | offset |reloff |   value   | flags| sz | tp |extsib|psd|psu|sectn|oprepsrc |opline|
+    0 |  x0064 | x0000 | x00000000 |x0109 |x00 |x02 |x0000 | 0 | 0 | 0:2 | 0:x003c |x01bb | PL:start
+    1 |  x0084 | x0020 | x00000000 |x0101 |x00 |x02 |x0000 | 0 | 0 | 0:1 | 0:x00c6 |x00b5 | PL:string1
+    2 |  x00a4 | x0040 | x00000100 |x0101 |x00 |x02 |x0000 | 0 | 0 | 0:1 | 0:x00f4 |x00e3 | PL:string2
+    3 |  x00c4 | x0060 | x00000200 |x0101 |x04 |x02 |x0000 | 0 | 0 | 0:1 | 0:x0122 |x0111 | PL:azazalolkek
+
+  Row dumps (nrows 10)
+  ¹   | offset |reloff |ofile |oline |   $ address  |extsib| section |atyp|tcod|vbits|
+    0 |  x0300 | x0000 |x0064 |x0000 |x   000000000 |x0000 | 0:x0000 |x 0 | 16 | x00 |
+    1 |  x031c | x001c |x0064 |x0023 |x   000000000 |x0000 | 0:x0000 |x 2 | 32 | x00 |
+    2 |  x0338 | x0038 |x0064 |x0065 |x   000000000 |x0000 | 0:x0000 |x 2 | 32 | x00 |
+    3 |  x0354 | x0054 |x0064 |x00b5 |x   000000000 |x0000 | 0:x0001 |x 2 | 32 | x00 |
+    4 |  x0370 | x0070 |x0164 |x00e3 |x   000000100 |x0000 | 0:x0001 |x 2 | 32 | x00 |
+    5 |  x038c | x008c |x0264 |x0111 |x   000000200 |x0000 | 0:x0001 |x 2 | 32 | x00 |
+    6 |  x03a8 | x00a8 |x0268 |x017b |x   000000204 |x0000 | 0:x0001 |x 2 | 32 | x00 |
+    7 |  x03c4 | x00c4 |x0268 |x01bb |x   000000000 |x0000 | 0:x0002 |x 2 | 32 | x00 |
+    8 |  x03e0 | x00e0 |x0268 |x01d4 |x   000000000 |x0000 | 0:x0002 |x 2 | 32 | x00 |
+    9 |  x03fc | x00fc |x026a |x01f5 |x   000000002 |x0000 | 0:x0002 |x 2 | 32 | x00 |
+ tail |  x0418 | x0118 |x026b |
+
+  Unique row dumps (5 rows)
+   ¹  |section| ofile | Nline |offprep| source
+    0 | x0001 | x0064 | x0007 | x00b5 | strcat1.asm
+    1 | x0001 | x0164 | x0008 | x00e3 | strcat1.asm
+    2 | x0001 | x0264 | x0009 | x0111 | strcat1.asm
+    3 | x0002 | x0268 | x0010 | x01d4 | strcat1.asm
+    4 | x0002 | x026a | x0011 | x01f5 | strcat1.asm
+
+  Preprocessed lines
+  ¹ | offset |reloff |ofile |  line  |inpfoff|omacro| filename   | tokens
+  0 |  x00e4 | x0000 |x0000 | 0:   1 | x0000 |x0000 |       main | {format}{MS}{COFF}
+  1 |  x0107 | x0023 |x0000 | 0:   2 | x001c |x0000 |       main | {public}{start}
+  2 |  x0127 | x0043 |x0000 | 0:   3 | x0037 |x0000 |       main | 
+  3 |  x0138 | x0054 |x0000 | 0:   4 | x004f |x0000 |       main | 
+  4 |  x0149 | x0065 |x0000 | 0:   5 | x0051 |x0000 |       main | {section}'.data'{data}{readable}{writeable}
+  5 |  x0188 | x00a4 |x0000 | 0:   6 | x007a |x0000 |       main | 
+  6 |  x0199 | x00b5 |x0000 | 0:   7 | x007c |x0000 |       main | {string1}:{times}{256}{db}{0}
+  7 |  x01c7 | x00e3 |x0000 | 0:   8 | x009d |x0000 |       main | {string2}:{times}{256}{db}{0}
+  8 |  x01f5 | x0111 |x0000 | 0:   9 | x00be |x0000 |       main | {azazalolkek}{dd}{55}
+  9 |  x021b | x0137 |x0000 | 0:  10 | x00d9 |x0000 |       main | 
+ 10 |  x022c | x0148 |x0000 | 0:  11 | x00db |x0000 |       main | 
+ 11 |  x023d | x0159 |x0000 | 0:  12 | x00ef |x0000 |       main | 
+ 12 |  x024e | x016a |x0000 | 0:  13 | x0103 |x0000 |       main | 
+ 13 |  x025f | x017b |x0000 | 0:  14 | x0105 |x0000 |       main | {section}'.code'{code}{readable}{executable}
+ 14 |  x029f | x01bb |x0000 | 0:  15 | x012f |x0000 |       main | {start}:
+ 15 |  x02b8 | x01d4 |x0000 | 0:  16 | x0137 |x0000 |       main | {mov}{eax},{eax}
+ 16 |  x02d9 | x01f5 |x0000 | 0:  17 | x014d |x0000 |       main | {ret}
+ 17 |  x02ef | x020b |x0000 | 0:  18 | x015a |x0000 |       main | 
+
+  Section names from fas
+section name offset=x0018 {".data"}
+section name offset=x001e {".code"}
+section name offset=x0000 {"strcat1.asm"}
+section name offset=x001c {"a"}

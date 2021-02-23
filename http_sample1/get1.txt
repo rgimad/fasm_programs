@@ -1,0 +1,101 @@
+format PE GUI 4.0
+entry start
+
+CR equ $0D
+LF equ  $0A
+
+include 'win32ax.inc'
+
+section '.data' data readable writeable
+  IPPROTO_TCP  = 6
+
+
+wsadata WSADATA
+ _caption db 'Client application',0
+ _igang db 'The client has started very well.',13,10,'It is now going to connect to your own computer',0
+ _hostname db 'Wrong hostname',0
+
+  hostname db 'www.lastfm.com',0
+  hSock dd ?
+  saddr sockaddr_in
+  sizesaddr = $-saddr
+
+
+  buffer rb 0x3000
+  sender        db "GET /music/Taylor+swift/+albums?order=reach&page=1 HTTP/1.1",CR,LF
+                  db "Host: www.last.fm",CR,LF
+                  db "Connection: close",13,10,13,10,0
+
+  sender2 db 'GET /music/Taylor+swift/+albums?order=reach&page=1 HTTP/1.1\r\nHost: www.last.fm\r\nConnection: close',13,10
+         rb 0x100
+
+section '.code' code readable executable
+start:
+
+       invoke WSAStartup,0101h,wsadata  ; initialiserer winsock-bibliotek
+
+       invoke  ws_gethostbyname,hostname
+       or     eax,eax
+       jz     bad_hostname
+              virtual at eax
+               .host hostent
+              end virtual
+       mov    eax,[.host.h_addr_list]
+       mov    eax,[eax]
+       mov    eax,[eax]
+       mov     [saddr.sin_addr],eax
+       invoke MessageBox,0,_igang,_caption,0
+       mov    al,00
+       mov    ah,80          ; port 80
+       mov     [saddr.sin_port],ax
+       mov     [saddr.sin_family],AF_INET
+       invoke  ws_socket, AF_INET, SOCK_STREAM, IPPROTO_TCP
+       mov     [hSock], eax
+       xchg    eax, esi
+       invoke  ws_connect, esi, saddr, sizesaddr
+       .if eax = 0
+       invoke MessageBox,0, "connected", _caption,0
+       .endif
+       .if eax <> 0
+       invoke MessageBox,0, "not connected", _caption,0
+       .endif
+       mov     ebx, buffer
+       invoke  ws_send,esi,sender,109,0
+       invoke  ws_recv, esi, ebx, 1000, 0
+       invoke MessageBox,0, buffer, _caption,0
+       .connectSucceeded:
+       invoke ws_closesocket,esi
+       invoke WSACleanup
+       jmp stopp
+
+bad_hostname:
+        invoke MessageBox,0,_hostname,_caption,0
+        jmp stopp
+
+stopp:
+        invoke ExitProcess,0
+
+
+
+section '.idata' import data readable writeable
+
+  library kernel,'KERNEL32.DLL',\
+          winsock,'WSOCK32.DLL',\
+          user,'USER32.DLL'
+
+  import kernel,\
+         ExitProcess,'ExitProcess'
+
+  import winsock,\
+        WSAStartup,'WSAStartup',\
+        ws_socket,'socket',\
+        ws_connect,'connect',\
+        ws_gethostbyname,'gethostbyname',\
+        ws_send,'send',\
+        ws_recv,'recv',\
+        ws_closesocket,'closesocket',\
+        WSACleanup,'WSACleanup'
+
+  import user,\
+        MessageBox,'MessageBoxA'
+    

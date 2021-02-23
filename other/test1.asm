@@ -1,0 +1,1 @@
+cmp word ptr eax, 32fh

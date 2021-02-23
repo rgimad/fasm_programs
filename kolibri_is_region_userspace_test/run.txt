@@ -1,0 +1,1 @@
+fasm is_region_userspace_test.asm > nul && is_region_userspace_test.exe

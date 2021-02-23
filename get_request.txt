@@ -1,0 +1,55 @@
+format PE GUI 4.0
+entry start
+include 'win32a.inc'
+section '.text' code readable executable
+
+ start:
+       invoke   WSAStartup,0101h,wsadata
+       invoke   gethostbyname,hostname
+       or       eax,eax
+       jz       ext
+       virtual  at eax
+      .host     hostent
+       end      virtual
+       mov      eax,[.host.h_addr_list]
+       mov      eax,[eax]
+       mov      eax,[eax]
+       mov      [saddr.sin_addr], eax
+
+       invoke   htons,[port]
+       mov      [saddr.sin_port],ax
+       mov      [saddr.sin_family],AF_INET
+
+       invoke   socket,AF_INET,SOCK_STREAM,6
+       xchg     eax,esi
+
+       invoke   connect,esi,saddr,sizesaddr
+       invoke   send,esi,sendb,SZ_sendb,0
+       invoke   closesocket,esi
+   ext:
+       ret
+
+section   '.data' data writeable readable
+
+  sendb  db   'GET /index.php? HTTP/1.0',0Dh,0Ah,\
+              'Host: test.ru',0Dh,0Ah,\
+              'User-Agent: Mozilla/5.0 (Windows NT 6.1; rv:14.0) Gecko/20100101 Firefox/14.0.1',0Dh,0Ah,\
+              'Accept: text/html,application/xml;q=0.9,*/*;q=0.8',0Dh,0Ah,\
+              'Accept-Language: ru-RU,ru;q=0.9,en;q=0.8',13,10,13,10
+
+  SZ_sendb     = $ - sendb
+
+  hostname     db 'test.ru',0
+  port         dd 80
+  saddr        sockaddr_in
+  sizesaddr    = sizeof.sockaddr_in
+  wsadata      WSADATA
+
+
+ section  '.idata' import data readable
+
+ library  kernel32,'KERNEL32.DLL',\
+          wsock32,'WSOCK32.DLL'
+
+  include 'api/kernel32.inc'
+  include 'api/wsock32.inc'
